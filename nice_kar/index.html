@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pełny Ekran z Filmem</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        img {
+            cursor: pointer;
+            width: 100px;
+            height: auto;
+        }
+        .hidden {
+            display: none;
+        }
+        .corner-image {
+            position: absolute;
+            width: 100px;
+            height: auto;
+        }
+        .video-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        video {
+            width: 640px;
+            height: auto;
+        }
+        .gif-container {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gif-container img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .gif-right {
+            margin-left: 20px;
+        }
+        .gif-middle {
+            margin-bottom: 20px;
+        }
+        .bottom-right-video {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 480px;
+            height: 270px;
+            display: none;
+        }
+        .top-right-video {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 480px;
+            height: 270px;
+            display: none;
+        }
+        /* Wideo na górze pośrodku */
+        #download-video {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 640px;
+            height: auto;
+            display: none;
+            z-index: 20; /* Zapewnia, że jest na wierzchu */
+        }
+        /* Animacja ruchu */
+        @keyframes move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(calc(100vw - 100px), calc(100vh - 100px)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Siemano Kolano Tapnij Bierdosa</h1>
+        <img src="1.jpg" alt="Zdjęcie 1" id="main-image">
+    </div>
+
+    <div id="corner-images" class="hidden">
+        <!-- Zdjęcia z kopiami -->
+        <img src="1.jpg" class="corner-image" id="img1">
+        <img src="1.jpg" class="corner-image" id="img1-copy1">
+        <img src="1.jpg" class="corner-image" id="img1-copy2">
+        <img src="2.jpg" class="corner-image" id="img2">
+        <img src="2.jpg" class="corner-image" id="img2-copy1">
+        <img src="2.jpg" class="corner-image" id="img2-copy2">
+        <img src="3.jpg" class="corner-image" id="img3">
+        <img src="3.jpg" class="corner-image" id="img3-copy1">
+        <img src="3.jpg" class="corner-image" id="img3-copy2">
+        <img src="4.jpg" class="corner-image" id="img4">
+        <img src="4.jpg" class="corner-image" id="img4-copy1">
+        <img src="4.jpg" class="corner-image" id="img4-copy2">
+    </div>
+
+    <div id="video-container" class="hidden">
+        <video controls autoplay muted loop preload="auto">
+            <source src="penguin.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="gif-container">
+        <img src="a.gif" alt="GIF A" class="gif-left">
+        <img src="d.gif" alt="GIF D" class="gif-right">
+        <img src="b.gif" alt="GIF B" class="gif-middle">
+    </div>
+
+    <!-- Elementy audio -->
+    <audio id="audio1" class="hidden" preload="auto" loop>
+        <source src="f.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio2" class="hidden" preload="auto" loop>
+        <source src="zzz.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Video in the bottom right corner -->
+    <video class="bottom-right-video" controls autoplay muted loop preload="auto">
+        <source src="9.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Video in the top right corner -->
+    <video class="top-right-video" controls autoplay muted loop preload="auto">
+        <source src="ff.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Wideo "kkkk.mp4" -->
+    <video id="download-video" controls autoplay muted loop preload="auto">
+        <source src="kkkk.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        document.getElementById('main-image').onclick = function() {
+            // Ukryj główny obraz i tekst
+            document.querySelector('.container').classList.add('hidden');
+
+            // Pokaż obrazy w rogach
+            const cornerImages = document.getElementById('corner-images');
+            cornerImages.classList.remove('hidden');
+
+            // Pokaż i odtwórz wideo
+            document.getElementById('video-container').classList.remove('hidden');
+
+            // Ustawienie głośności i odtwarzanie dźwięków
+            const audio1 = document.getElementById('audio1');
+            const audio2 = document.getElementById('audio2');
+            audio1.classList.remove('hidden');
+            audio2.classList.remove('hidden');
+
+            audio1.volume = 1.0; // maksymalna głośność dla f.mp3
+            audio2.volume = 0.3; // cichsza głośność dla zzz.mp3
+
+            audio1.play();
+            audio2.play();
+
+            // Pokaż wideo w prawym dolnym rogu
+            document.querySelector('.bottom-right-video').style.display = 'block';
+
+            // Pokaż wideo w prawym górnym rogu
+            document.querySelector('.top-right-video').style.display = 'block';
+
+            // Pokaż gify
+            document.querySelector('.gif-container').style.display = 'flex';
+
+            // Pokaż wideo "kkkk.mp4" na górze pośrodku
+            document.getElementById('download-video').style.display = 'block';
+
+            // Rozpocznij animację zdjęć
+            startRandomMove();
+        };
+
+        function startRandomMove() {
+            const images = document.querySelectorAll('.corner-image');
+            const imageSize = 100; // Rozmiar zdjęcia
+
+            images.forEach(img => {
+                // Przypisz losową animację do każdego obrazka
+                const duration = Math.random() * 5 + 5; // Czas trwania animacji (5-10 sekund)
+                img.style.animation = `move ${duration}s infinite linear`;
+            });
+        }
+    </script>
+</body>
+</html>
